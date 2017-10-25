@@ -13,18 +13,24 @@ module.exports = {
     historyApiFallback: true,
     inline: true
   },
-  plugins: [
-      new HtmlWebpackPlugin({
-        filename: '../index.html',
-        template: 'src/index.html'
-      }),
-      new webpack.optimize.CommonsChunkPlugin({name: 'vendors', filename: 'vendors.js'}),
-
-      // expose the environment to the front end
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production')
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env']
+          }
         }
-      }),
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: '../index.html',
+      template: 'src/index.html'
+    })
   ]
 }

@@ -4,12 +4,11 @@ module.exports = {
   auth: null,
   init: function (callback) {
     this.auth = Firebase.auth();
-    this.auth
-      .onAuthStateChanged(function(user) {
-        if(callback){
-          callback();
-        }
-      })
+    this.auth.onAuthStateChanged(function(user) {
+      if(callback){
+        callback();
+      }
+    });
 
     return this;
   },
